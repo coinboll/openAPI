@@ -602,7 +602,7 @@ Query orders by order status.
 **请求**
 ```http   
     # Request
-    GET /{pairCode}/orders/{id}
+    GET /openapi/exchange/{pairCode}/orders/{id}
 ```
 **响应**
 ```javascript
