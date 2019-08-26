@@ -31,7 +31,8 @@ Kangbo trading platform official API documentation
         - [3. Cancel all orders](#3-Cancel all orders)
         - [4. Cancel orders](#4-Cancel specific orders)
         - [5. Query all orders](#5-Query all orders])
-        - [6. Get bills](#6-Get bills)
+        - [6. 通过id获取订单](#6-通过id获取订单)
+        - [7. Get bills](#7-Get bills)
 <!-- /TOC -->
 # Introduction 
 Welcome to use [Kangbo]()developer documentation.
@@ -45,7 +46,7 @@ REST，the abbreviation of Representational State Transfer，is a kind of popula
 Developers are advised to use the REST API for market queries, crypto trading, and account management,etc.
 # API interface encryption verification
 ## Generate API KEY
-Before signing any request, you must generate  an API KEY via the 1strade website [User Center] - [API]. After generating the API KEY, you will get 3 pieces of information that you must remember:
+Before signing any request, you must generate  an API KEY via the kangbo website [User Center] - [API]. After generating the API KEY, you will get 3 pieces of information that you must remember:
 * API Key
 * Secret Key
 * Passphrase
@@ -94,7 +95,7 @@ hmac = hmac(secretkey, Message, SHA256)
 Signature = base64.encode(hmac.digest())
 ```
 ## Request interaction  
-Root URL for REST access：`https://www.1strade.co`
+Root URL for REST access：`https://www.kangbo.io`
 ### Request
 All requests are based on the Https protocol, and the Content-Type in the request header information needs to be uniformly set to: 'application/json'.
 **Request interaction description**
@@ -596,7 +597,72 @@ Query orders by order status.
 |page|Integer|No|Page number|
 |pageSize|Integer|No|Terms number per page|
 
-### 6. Get bills, can be checked with pagination 
+### 6. 通过id获取订单
+
+**请求**
+```http   
+    # Request
+    GET /{pairCode}/orders/{id}
+```
+**响应**
+```javascript
+    # Response
+    {
+    	"id": 1524801032573,
+    	"pairCode": "BTC_USDT",
+    	"userId": 1001,
+    	"brokerId": 10000,
+    	"side": "buy",
+    	"entrustPrice": "1",
+    	"amount": "1",
+    	"dealAmount": "1",
+    	"quoteAmount": "1",
+    	"dealQuoteAmount": "1",
+    	"systemOrderType": "limit",
+    	"status": 0,
+    	"sourceInfo": "web",
+    	"createOn": 1524801032573,
+    	"updateOn": 1524801032573,
+    	"symbol": "BTC",
+    	"trunOver": "1",
+    	"notStrike": "0",
+    	"averagePrice": "1",
+    	"openAmount": "1"
+    }
+```
+**返回值说明**
+
+|返回字段|字段说明|
+|--------|----|
+| id |订单id|
+| pairCode |是Base和quote之间的组合 BTC_USD|
+| userId |用户id|
+| brokerId |券商id|
+| side |方向 买、卖|
+| entrustPrice |下单价格|
+| amount |下单数量|
+| dealAmount |成交数量|
+| quoteAmount |基准币数量  只有在市价买的情况下会用到|
+| dealQuoteAmount |基准币已成交数量|
+| systemOrderType |10:限价 11:市价|
+| status |0:未成交 1:部分成交 2:完全成交 3:撤单中 -1:已撤单|
+| sourceInfo |下单来源 web,api,Ios,android|
+| createOn |创建时间|
+| updateOn |修改时间|
+| symbol |币种|
+| trunOver |成交金额  dealQuoteAmount * dealAmount|
+| notStrike |尚未成交的数量|
+| averagePrice |平均成交价|
+| openAmount |下单数量|
+
+**请求参数**
+
+|参数名 | 参数类型 | 必填 | 描述 |
+|---|----|----|----|
+|pairCode|String|是|币对，如BTC_USDT|
+|id|Long|是|订单id|
+
+### 7. Get bills, can be checked with pagination 
 Get the crypto transaction bill.
 **Request**
 ```http
@@ -655,6 +721,5 @@ Get the crypto transaction bill.
 |currencyCode|String|Yes|currency ，such as BTC|
 |limit|Integer|No|Request return data volume, default / maximum value is 100|
   
-[1strade]: https://www.1strade.co 
-[English Docs]: https://github.com/1strade/openAPI/blob/master/README_EN.md
-
+[kangbo]: https://www.kangbo.io 
+[English Docs]: https://github.com/kangbo/openAPI/blob/master/README_EN.md
