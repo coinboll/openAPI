@@ -25,6 +25,7 @@
         - [4. 获取币对历史成交记录](#4-获取币对历史成交记录)
         - [5. 获取K线数据](#5-获取k线数据)
         - [6. 获取服务器时间](#6-获取服务器时间)
+		- [7. 获取所有币对Ticker](#7-获取所有币对Ticker)
     - [币币账户API](#币币账户api)
         - [1. 获取账户信息](#1-获取账户信息)
         - [2. 交易委托](#2-交易委托)
@@ -423,6 +424,98 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 |epoch|以秒为时间戳形式表达的服务器时间|
 |iso|为ISO 8061标准的时间字符串表达的服务器时间|
 |timestamp|以毫秒为时间戳形式表达的服务器时间|
+
+### 7. 获取所有币对Ticker
+**请求**
+```http
+	# Request
+	GET /openapi/exchange/public/currenciesTicker
+```
+**响应**
+```javascript
+[
+    {
+        "currencyPairDTO":{
+            "baseIncrement":0,
+            "baseSymbol":"BTC",
+            "id":0,
+            "lastPrice":0,
+            "makerFeesRate":"-0.001",
+            "maxPrice":4,
+            "maxVolume":4,
+            "minTrade":0.000001,
+            "online":0,
+            "pairCode":"BTC_USDT",
+            "quoteIncrement":0,
+            "quotePrecision":0,
+            "quoteSymbol":"USDT",
+            "sort":1,
+            "tickerFeesRate":"-0.001"
+        },
+        "tickerDTO":{
+            "buy":"7971.1087",
+            "change24":"0E-8",
+            "changePercentage":"",
+            "changeRate24":"0.0000",
+            "close":"",
+            "createOn":1571631472964,
+            "high":"8010.0039000000000000",
+            "high24":"8010.0039000000000000",
+            "last":"8010.0039",
+            "low":"8010.0039000000000000",
+            "low24":"8010.0039000000000000",
+            "open":"8010.00390000",
+            "pairCode":"BTC_USDT",
+            "quoteVolume":"0E-16",
+            "sell":"8011.0039",
+            "volume":"0"
+        }
+    },
+    {
+        "currencyPairDTO":{
+            "baseIncrement":0,
+            "baseSymbol":"ETH",
+            "id":0,
+            "lastPrice":0,
+            "makerFeesRate":"-0.001",
+            "maxPrice":4,
+            "maxVolume":4,
+            "minTrade":0.001,
+            "online":0,
+            "pairCode":"ETH_USDT",
+            "quoteIncrement":0,
+            "quotePrecision":0,
+            "quoteSymbol":"USDT",
+            "sort":2,
+            "tickerFeesRate":"-0.001"
+        },
+        "tickerDTO":{
+            "buy":"173.68390000",
+            "change24":"0E-8",
+            "changePercentage":"",
+            "changeRate24":"0E-16",
+            "close":"",
+            "createOn":1571631456000,
+            "high":"173.86230000",
+            "high24":"173.86230000",
+            "last":"173.86230000",
+            "low":"173.86230000",
+            "low24":"173.86230000",
+            "open":"173.86230000",
+            "pairCode":"ETH_USDT",
+            "quoteVolume":"0E-8",
+            "sell":"174.04560000",
+            "volume":"0E-8"
+        }
+    },...
+]
+```
+**返回值说明**  
+
+|返回字段 | 字段说明|
+| ----------|:-------:|
+|currencyPairDTO|见[获取所有币对列表](#1-获取所有币对列表)-返回值说明|
+|tickerDTO|见[获取币对Ticker](#3-获取币对Ticker)-返回值说明|
 
 ## 币币账户API
 ### 1. 获取账户信息

@@ -25,6 +25,7 @@ Kangbo trading platform official API documentation
         - [4. Get trading history of trading pairs](#4-Get trading history of trading pairs)
         - [5. Get K-Line data](#5-Get K-Line data)
         - [6. Get server time](#6-Get server time)
+		- [7. Get the list of all pair's ticker](#7-get-the-list-of-all-pair's-ticker)
     - [Crypto account API](#Crypto account api)
         - [1. Get account information](#1-Get account information)
         - [2. Orders](#2-Orders)
@@ -423,6 +424,98 @@ The interface to get the time of the API server.
 |epoch|Server time expressed in seconds as a timestamp|
 |iso|Server time for ISO 8061 standard time string representation|
 |timestamp|Server time expressed in milliseconds as a timestamp|
+
+### 7. Get the list of all pair's ticker
+**Request**
+```http
+	# Request
+	GET /openapi/exchange/public/currenciesTicker
+```
+**Response**
+```javascript
+[
+    {
+        "currencyPairDTO":{
+            "baseIncrement":0,
+            "baseSymbol":"BTC",
+            "id":0,
+            "lastPrice":0,
+            "makerFeesRate":"-0.001",
+            "maxPrice":4,
+            "maxVolume":4,
+            "minTrade":0.000001,
+            "online":0,
+            "pairCode":"BTC_USDT",
+            "quoteIncrement":0,
+            "quotePrecision":0,
+            "quoteSymbol":"USDT",
+            "sort":1,
+            "tickerFeesRate":"-0.001"
+        },
+        "tickerDTO":{
+            "buy":"7971.1087",
+            "change24":"0E-8",
+            "changePercentage":"",
+            "changeRate24":"0.0000",
+            "close":"",
+            "createOn":1571631472964,
+            "high":"8010.0039000000000000",
+            "high24":"8010.0039000000000000",
+            "last":"8010.0039",
+            "low":"8010.0039000000000000",
+            "low24":"8010.0039000000000000",
+            "open":"8010.00390000",
+            "pairCode":"BTC_USDT",
+            "quoteVolume":"0E-16",
+            "sell":"8011.0039",
+            "volume":"0"
+        }
+    },
+    {
+        "currencyPairDTO":{
+            "baseIncrement":0,
+            "baseSymbol":"ETH",
+            "id":0,
+            "lastPrice":0,
+            "makerFeesRate":"-0.001",
+            "maxPrice":4,
+            "maxVolume":4,
+            "minTrade":0.001,
+            "online":0,
+            "pairCode":"ETH_USDT",
+            "quoteIncrement":0,
+            "quotePrecision":0,
+            "quoteSymbol":"USDT",
+            "sort":2,
+            "tickerFeesRate":"-0.001"
+        },
+        "tickerDTO":{
+            "buy":"173.68390000",
+            "change24":"0E-8",
+            "changePercentage":"",
+            "changeRate24":"0E-16",
+            "close":"",
+            "createOn":1571631456000,
+            "high":"173.86230000",
+            "high24":"173.86230000",
+            "last":"173.86230000",
+            "low":"173.86230000",
+            "low24":"173.86230000",
+            "open":"173.86230000",
+            "pairCode":"ETH_USDT",
+            "quoteVolume":"0E-8",
+            "sell":"174.04560000",
+            "volume":"0E-8"
+        }
+    },...
+]
+```
+**Return value description**  
+
+|Return field | Field description|
+| ----------|:-------:|
+|currencyPairDTO|see [Get the list of all pairs](#1-get-the-list-of-all-pairs)|
+|tickerDTO|see [Get trading pairs ticker](#3-get-trading-pairs-ticker)|
 
 ## Crypto account API
 ### 1. Get account information Get the balance list of crypto  account, check the balance of each currency and their freeze and availability status.
