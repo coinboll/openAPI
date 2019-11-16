@@ -96,6 +96,7 @@ hmac = hmac(secretkey, Message, SHA256)
 ```java
 Signature = base64.encode(hmac.digest())
 ```
+代码示例:[Java](https://github.com/coinboll/openAPI/tree/master/java-demo)
 ## 请求交互  
 REST访问的根URL：`https://www.kangbo.io`
 ### 请求
