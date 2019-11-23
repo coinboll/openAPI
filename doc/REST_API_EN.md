@@ -375,7 +375,7 @@ Get trading history of the requested trading pairs,can be queried with paginatio
 ```javascript
     # Response
     {
-        [ 1415398768, 0.32, 0.42, 0.36, 0.41, 12.3 ]
+        [ 1415398768000, 0.32, 0.42, 0.36, 0.41, 12.3 ]
         ...
     }
 ```
