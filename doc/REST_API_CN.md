@@ -607,16 +607,39 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 **响应**
 ```javascript
     # Response
-    {...}
 ```
 **请求参数**
 
 |参数名|参数类型|必填|描述|
 |---|----|----|----|
-|code|String|是|币对，如BTC_USDT|
-|orderId|String|是|需要撤销的未成交委托的id|
+|pairCode|String|是|币对，如BTC_USDT|
+|id|Long|是|需要撤销的未成交委托的id|
 
-### 5. 查询所有订单
+### 4. 按订单批量撤销委托
+按照订单id列表撤销订单。由于是异步撤单，所以该接口没有返回值。
+**请求**
+```http
+    # Request
+    DELETE /openapi/exchange/{pairCode}/orders
+```
+**响应**
+```javascript
+    # Response
+    空
+```
+**请求参数**
+
+|参数名|参数类型|必填|描述|
+|---|----|----|----|
+|pairCode|String|是|币对，如BTC_USDT|
+
+**Request body**
+```json
+    #需要撤销的未成交委托的所有id
+    [1,2,3]
+```
+
+### 6. 查询所有订单
     
 **请求**
 ```http   
@@ -691,7 +714,7 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 |page|Integer|否|第几页|
 |pageSize|Integer|否|每页条数|
 
-### 6. 通过id获取订单
+### 7. 通过id获取订单
 
 **请求**
 ```http   
@@ -756,7 +779,7 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 |pairCode|String|是|币对，如BTC_USDT|
 |id|Long|是|订单id|
 
-### 7. 获取账单
+### 8. 获取账单
 
 **请求**
 ```http

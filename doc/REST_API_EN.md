@@ -606,16 +606,37 @@ The specified order is cancelled according to the order id. The interface has no
 **Response**
 ```javascript
     # Response
-    {...}
 ```
 **Request parameters**
 
 |Parameter Name | Parameter Type | Required | Description|
 |---|----|----|----|
-|code|String|Yes|trading pair，example:BTC_USDT|
-|orderId|String|Yes|The ID of the unfilled order that needs to be canceled|
+|pairCode|String|Yes|trading pair，example:BTC_USDT|
+|id|Long|Yes|The ID of the unfilled order that needs to be canceled|
 
-### 5. Query orders, support pagination.
+### 5. Cancel some orders
+The specified order is cancelled according to the order id. The interface has no return value because the cancellations are conducted asynchronously.
+**Request**
+```http
+    # Request
+    DELETE /openapi/exchange/{pairCode}/orders
+```
+**Response**
+```javascript
+    # Response
+```
+**Request parameters**
+
+|Parameter Name | Parameter Type | Required | Description|
+|---|----|----|----|
+|pairCode|String|Yes|trading pair，example:BTC_USDT|
+
+**Request body**
+```json
+    [1,2,3]
+```
+
+### 6. Query orders, support pagination.
 Query orders by order status.
     
 **Request**
@@ -691,7 +712,7 @@ Query orders by order status.
 |page|Integer|No|Page number|
 |pageSize|Integer|No|Terms number per page|
 
-### 6. 通过id获取订单
+### 7. 通过id获取订单
 
 **请求**
 ```http   
@@ -756,7 +777,7 @@ Query orders by order status.
 |pairCode|String|是|币对，如BTC_USDT|
 |id|Long|是|订单id|
 
-### 7. Get bills, can be checked with pagination 
+### 8. Get bills, can be checked with pagination 
 Get the crypto transaction bill.
 **Request**
 ```http
