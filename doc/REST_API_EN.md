@@ -31,9 +31,10 @@ Kangbo trading platform official API documentation
         - [2. Orders](#2-Orders)
         - [3. Cancel all orders](#3-Cancel all orders)
         - [4. Cancel orders](#4-Cancel specific orders)
-        - [5. Query all orders](#5-Query all orders])
-        - [6. 通过id获取订单](#6-通过id获取订单)
-        - [7. Get bills](#7-Get bills)
+        - [5. Cancel some orders](#5-Cancel\ some\ orders)
+        - [6. Query all orders](#6-Query all orders])
+        - [7. 通过id获取订单](#7-通过id获取订单)
+        - [8. Get bills](#8-Get bills)
 <!-- /TOC -->
 # Introduction 
 Welcome to use [Kangbo]()developer documentation.
