@@ -27,14 +27,15 @@ Kangbo trading platform official API documentation
         - [6. Get server time](#6-Get server time)
 		- [7. Get the list of all pair's ticker](#7-get-the-list-of-all-pair's-ticker)
     - [Crypto account API](#Crypto account api)
-        - [1. Get account information](#1-Get account information)
+        - [1. Get account information](#1-Get-account-information)
         - [2. Orders](#2-Orders)
-        - [3. Cancel all orders](#3-Cancel all orders)
-        - [4. Cancel orders](#4-Cancel specific orders)
-        - [5. Cancel some orders](#5-Cancel\ some\ orders)
-        - [6. Query all orders](#6-Query all orders])
-        - [7. 通过id获取订单](#7-通过id获取订单)
-        - [8. Get bills](#8-Get bills)
+        - [3. Batch Orders](#3-Batch-Orders)
+        - [4. Cancel all orders](#4-Cancel-all-orders)
+        - [5. Cancel orders](#5-Cancel-specific-orders)
+        - [6. Cancel some orders](#6-Cancel-some-orders)
+        - [7. Query all orders](#7-Query-all-orders])
+        - [8. 通过id获取订单](#8-通过id获取订单)
+        - [9. Get bills](#9-Get-bills)
 <!-- /TOC -->
 # Introduction 
 Welcome to use [Kangbo]()developer documentation.
@@ -520,7 +521,8 @@ The interface to get the time of the API server.
 |tickerDTO|see [Get trading pairs ticker](#3-get-trading-pairs-ticker)|
 
 ## Crypto account API
-### 1. Get account information Get the balance list of crypto  account, check the balance of each currency and their freeze and availability status.
+### 1. Get account information
+Get the balance list of crypto  account, check the balance of each currency and their freeze and availability status.
 **Request**
 ```
     # Request
@@ -578,7 +580,37 @@ Order id
 |price|String|No|Transmit parameters when there is limit order , representing the trading price.|
 |quoteVolume|String|No|Transmit parameters when there is bid order with market price , representing the pricing currency amount.|
 
-### 3. Cancel all orders
+### 3. Batch Orders
+Provide limit orders and market orders.
+**Request**
+```
+    # Request
+    POST /openapi/exchange/batch-orders
+```
+**Response**
+```javascript
+    # Response
+    [10000,20000]
+```   
+```javascript
+    # Response
+    [10000,{"code":-1,"data":null,"msg":""}]
+``` 
+**Return value description**
+orderId array
+
+**Request parameters**
+
+|Parameter Name | Parameter Type | Required | Description|
+|:----:|:----:|:---:|----|
+|[{pairCode|String|Yes|trading pair，example:BTC_USDT|
+|side|String|Yes|bid is buy，ask is sell|
+|systemOrderType|String|Yes|limit is limit order，market is market price |
+|volume|String|No|Transmit parameters when there is limit order or ask order with market price, representing the traded currency amount.|
+|price|String|No|Transmit parameters when there is limit order , representing the trading price.|
+|quoteVolume}]|String|No|Transmit parameters when there is bid order with market price , representing the pricing currency amount.|
+
+### 4. Cancel all orders
 Cancel all unfilled orders of the target trading pair,  50 cancellations at most. The interface has no return value because the cancellations are conducted asynchronously.
 **Request**
 ```
@@ -597,7 +629,7 @@ Cancel all unfilled orders of the target trading pair,  50 cancellations at most
 |pairCode|String|Yes|trading pair， example:BTC_USDT|
 Currently canceling 200 pending orders in batches.
 
-### 4. Cancel specific orders
+### 5. Cancel specific orders
 The specified order is cancelled according to the order id. The interface has no return value because the cancellations are conducted asynchronously.
 **Request**
 ```http
@@ -615,7 +647,7 @@ The specified order is cancelled according to the order id. The interface has no
 |pairCode|String|Yes|trading pair，example:BTC_USDT|
 |id|Long|Yes|The ID of the unfilled order that needs to be canceled|
 
-### 5. Cancel some orders
+### 6. Cancel some orders
 The specified order is cancelled according to the order id. The interface has no return value because the cancellations are conducted asynchronously.
 **Request**
 ```http
@@ -637,7 +669,7 @@ The specified order is cancelled according to the order id. The interface has no
     [1,2,3]
 ```
 
-### 6. Query orders, support pagination.
+### 7. Query orders, support pagination.
 Query orders by order status.
     
 **Request**
@@ -713,7 +745,7 @@ Query orders by order status.
 |page|Integer|No|Page number|
 |pageSize|Integer|No|Terms number per page|
 
-### 7. 通过id获取订单
+### 8. 通过id获取订单
 
 **请求**
 ```http   
@@ -778,7 +810,7 @@ Query orders by order status.
 |pairCode|String|是|币对，如BTC_USDT|
 |id|Long|是|订单id|
 
-### 8. Get bills, can be checked with pagination 
+### 9. Get bills, can be checked with pagination 
 Get the crypto transaction bill.
 **Request**
 ```http
