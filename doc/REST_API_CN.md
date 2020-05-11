@@ -918,7 +918,6 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 |price|BigDecimal|否|价格|
 |amount|BigDecimal|否|数量|
 |source|String|否|币对，如LTC_BTCweb,api,Ios,android|
-|isHistory|Boolean|否|是否查历史数据、一周前成交的数据是历史数据、默认false|
 |page|Integer|否|第几页|
 |pageSize|Integer|否|每页条数|
 

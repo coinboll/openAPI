@@ -919,7 +919,6 @@ Get trading history of the requested trading pairs,can be queried with paginatio
 |price|BigDecimal|No|Price|
 |amount|BigDecimal|No|Amount|
 |source|String|No|Trading pair，example:LTC_BTCweb,api,Ios,android|
-|isHistory|Boolean|No|Whether to check historical data, the data of one week ago is historical data, default false|
 |page|Integer|No|Page number|
 |pageSize|Integer|No|terms number of per page|
 
