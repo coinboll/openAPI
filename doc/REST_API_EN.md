@@ -22,7 +22,7 @@ Kangbo trading platform official API documentation
         - [1. Get the list of all pairs](#1-Get a list of all pairs)
         - [2. Get trading depth list of trading pairs](#2-Get trading depth list of trading pairs)
         - [3. Get pairs Ticker](#3-Get pairs ticker)
-        - [4. Get trading history of trading pairs](#4-Get trading history of trading pairs)
+        - [4. Get trading history of trading pairs](#4-Get-trading-history-of-trading-pairs)
         - [5. Get K-Line data](#5-Get K-Line data)
         - [6. Get server time](#6-Get server time)
 		- [7. Get the list of all pair's ticker](#7-get-the-list-of-all-pair's-ticker)
@@ -33,9 +33,11 @@ Kangbo trading platform official API documentation
         - [4. Cancel all orders](#4-Cancel-all-orders)
         - [5. Cancel orders](#5-Cancel-specific-orders)
         - [6. Cancel some orders](#6-Cancel-some-orders)
-        - [7. Query all orders](#7-Query-all-orders])
+        - [7. Query all open orders](#7-Query-all-open-orders])
         - [8. 通过id获取订单](#8-通过id获取订单)
-        - [9. Get bills](#9-Get-bills)
+        - [9. Get trading history of trading pairs](#9-Get-trading-history-of-trading-pairs)
+        - [10. Search all orders](#10-Search-all-orders)
+        - [11. Get bills](#11-Get-bills)
 <!-- /TOC -->
 # Introduction 
 Welcome to use [Kangbo]()developer documentation.
@@ -184,7 +186,7 @@ If the request is too frequent, the system will automatically limit the request 
 | maxVolume | Minimum decimals places of trading amount |
 | minTrade | Minimum order amount |
 | online | Online or not |
-| pairCode | the combination between Base and quote BTC_USD |
+| pairCode | the combination between Base and quote BTC_USDT |
 | quoteIncrement | Minimum trading unit |
 | quotePrecision | Unit accuracy of pricing currency quantity  |
 | quoteSymbol | Pricing currency |
@@ -286,85 +288,41 @@ Snapshot information of last trading price,bid 1 price, ask 1 price, 24h higest 
 |------|----|:---:|:---:|
 |pairCode|String|Yes|trading pair，example:ETH_BTC|
     
-### 4. Get trading history of trading pairs,can be queried with pagination .
-Get trading history of the requested trading pairs,can be queried with pagination .
-**Request**
+### 4. Get trading history of trading pairs
+Get trading history of the requested trading pairs .
 ```http
     # Request
-    GET /openapi/exchange/{pairCode}/fulfillment
+    GET /openapi/exchange/public/{pairCode}/fills
 ```
 **Response**
 ```javascript
     # Response
     [
         [
-            	"id": 1524801032573,
-				"pairCode": "BTC_USDT",
-				"userId": 1001,		
-				"brokerId": 10000,		
-				"side": "buy",
-				"entrustPrice": "1",
-				"amount": "1",
-				"dealAmount": "1",
-				"quoteAmount": "1",
-				"dealQuoteAmount": "1",
-				"systemOrderType": "limit",
-				"status": 0,
-				"sourceInfo": "web",
-				"createOn": 1524801032573,
-				"updateOn": 1524801032573,
-				"symbol": "BTC",
-				"trunOver": "1",
-				"notStrike": "0",
-				"averagePrice": "1",
-				"openAmount": "1"
+            "8753.3923",
+            "0.0787",
+            "buy",
+            1589165365839,
+            1111111111
         ],
         ...
     ]
 ```
 **Return value description**
 
-|Return field | Field description|
+|Field index|Field description|
 |--------|----|
-| id |order id|
-| pairCode |the combination between Base and quote BTC_USD|
-| userId |user id|
-| brokerId |broker id|
-| side |side bid, ask|
-| entrustPrice |order price|
-| amount |order amount|
-| dealAmount |trading amount|
-| quoteAmount |benchmark currency amount , only used in bid orders with market price|
-| dealQuoteAmount |trading amount of benchmark currency|
-| systemOrderType |10:limit price 11:market price|
-| status |0:unfilled 1:partially filled 2:filled 3:cancelling  -1:canceled |
-| sourceInfo |order source web,api,Ios,android|
-| createOn |create time|
-| updateOn |modify time|
-| symbol |currency|
-| trunOver |trade volume   dealQuoteAmount * dealAmount|
-| notStrike |unfilled amount|
-| averagePrice |average trading price|
-| openAmount |order amount|
+| 0 |price|
+| 1 |amount|
+| 2 |side|
+| 3 |timestamp|
+| 4 |order id|
 
 **Request parameters**
 
 |Parameter Name | Parameter Type | Required | Description|
 |-----|:---:|----|----|
 |pairCode|String|Yes|trading pair，example:LTC_BTC|
-|startDate|Long|No|Start time，example:1524801032573|
-|endDate|Long|No|end time，example:1524801032573|
-|systemOrderType|Integer|No|10:limit price 11:market price|
-|price|BigDecimal|No|Price|
-|amount|BigDecimal|No|Amount|
-|source|String|No|Trading pair，example:LTC_BTCweb,api,Ios,android|
-|isHistory|Boolean|No|Whether to check historical data, the data of one week ago is historical data, default false|
-|page|Integer|No|Page number|
-|pageSize|Integer|No|terms number of per page|
-
-**Description**
-+ Trade side represents the maker's side in each filled orders, and  the maker refers to the trader who places the order on the order depth chart ,that is, the passive trading side.
-+ Buy represents a dropping market, because the maker places the bid order, and his order is filled, resulting in price falls; On the contrary, sell represents the market going up, because the maker places the ask order, and the order is filled, indicating the rise of price.
 
 ### 5. Get K-Line data
 **Request**
@@ -669,8 +627,7 @@ The specified order is cancelled according to the order id. The interface has no
     [1,2,3]
 ```
 
-### 7. Query orders, support pagination.
-Query orders by order status.
+### 7. Query all open orders
     
 **Request**
 ```http   
@@ -711,7 +668,7 @@ Query orders by order status.
 |Return field | Field description|
 |--------|----|
 | id |Order id|
-| pairCode |the combination between Base and quote BTC_USD|
+| pairCode |the combination between Base and quote BTC_USDT|
 | userId |User id|
 | brokerId |Broker id|
 | side |Side bid,ask|
@@ -783,7 +740,7 @@ Query orders by order status.
 |返回字段|字段说明|
 |--------|----|
 | id |订单id|
-| pairCode |是Base和quote之间的组合 BTC_USD|
+| pairCode |是Base和quote之间的组合 BTC_USDT|
 | userId |用户id|
 | brokerId |券商id|
 | side |方向 买、卖|
@@ -810,8 +767,164 @@ Query orders by order status.
 |pairCode|String|是|币对，如BTC_USDT|
 |id|Long|是|订单id|
 
-### 9. Get bills, can be checked with pagination 
-Get the crypto transaction bill.
+### 9. Get trading history of trading pairs
+Get trading history of the requested trading pairs,can be queried with pagination .
+**Request**
+```http
+    # Request
+    GET /openapi/exchange/{pairCode}/fulfillment
+```
+**Response**
+```javascript
+    # Response
+    [
+        [
+            	"id": 1524801032573,
+				"pairCode": "BTC_USDT",
+				"userId": 1001,		
+				"brokerId": 10000,		
+				"side": "buy",
+				"entrustPrice": "1",
+				"amount": "1",
+				"dealAmount": "1",
+				"quoteAmount": "1",
+				"dealQuoteAmount": "1",
+				"systemOrderType": "limit",
+				"status": 0,
+				"sourceInfo": "web",
+				"createOn": 1524801032573,
+				"updateOn": 1524801032573,
+				"symbol": "BTC",
+				"trunOver": "1",
+				"notStrike": "0",
+				"averagePrice": "1",
+				"openAmount": "1"
+        ],
+        ...
+    ]
+```
+**Return value description**
+
+|Return field | Field description|
+|--------|----|
+| id |order id|
+| pairCode |the combination between Base and quote BTC_USDT|
+| userId |user id|
+| brokerId |broker id|
+| side |side bid, ask|
+| entrustPrice |order price|
+| amount |order amount|
+| dealAmount |trading amount|
+| quoteAmount |benchmark currency amount , only used in bid orders with market price|
+| dealQuoteAmount |trading amount of benchmark currency|
+| systemOrderType |10:limit price 11:market price|
+| status |0:unfilled 1:partially filled 2:filled 3:cancelling  -1:canceled |
+| sourceInfo |order source web,api,Ios,android|
+| createOn |create time|
+| updateOn |modify time|
+| symbol |currency|
+| trunOver |trade volume   dealQuoteAmount * dealAmount|
+| notStrike |unfilled amount|
+| averagePrice |average trading price|
+| openAmount |order amount|
+
+**Request parameters**
+
+|Parameter Name | Parameter Type | Required | Description|
+|-----|:---:|----|----|
+|pairCode|String|Yes|trading pair，example:LTC_BTC|
+|startDate|Long|No|Start time，example:1524801032573|
+|endDate|Long|No|end time，example:1524801032573|
+|systemOrderType|Integer|No|10:limit price 11:market price|
+|price|BigDecimal|No|Price|
+|amount|BigDecimal|No|Amount|
+|source|String|No|Trading pair，example:LTC_BTCweb,api,Ios,android|
+|isHistory|Boolean|No|Whether to check historical data, the data of one week ago is historical data, default false|
+|page|Integer|No|Page number|
+|pageSize|Integer|No|terms number of per page|
+
+**Description**
++ Trade side represents the maker's side in each filled orders, and  the maker refers to the trader who places the order on the order depth chart ,that is, the passive trading side.
++ Buy represents a dropping market, because the maker places the bid order, and his order is filled, resulting in price falls; On the contrary, sell represents the market going up, because the maker places the ask order, and the order is filled, indicating the rise of price.
+
+### 10. Search all orders
+**Request**
+```http
+    # Request
+    GET /openapi/exchange/allOrders
+```
+**Response**
+```javascript
+    # Response
+    [
+        [
+            	"id": 1524801032573,
+				"pairCode": "BTC_USDT",
+				"userId": 1001,		
+				"brokerId": 10000,		
+				"side": "buy",
+				"entrustPrice": "1",
+				"amount": "1",
+				"dealAmount": "1",
+				"quoteAmount": "1",
+				"dealQuoteAmount": "1",
+				"systemOrderType": "limit",
+				"status": 0,
+				"sourceInfo": "web",
+				"createOn": 1524801032573,
+				"updateOn": 1524801032573,
+				"symbol": "BTC",
+				"trunOver": "1",
+				"notStrike": "0",
+				"averagePrice": "1",
+				"openAmount": "1"
+        ],
+        ...
+    ]
+```
+**Return value description**
+
+|Return field | Field description|
+|--------|----|
+| id |order id|
+| pairCode |the combination between Base and quote BTC_USDT|
+| userId |user id|
+| brokerId |broker id|
+| side |side bid, ask|
+| entrustPrice |order price|
+| amount |order amount|
+| dealAmount |trading amount|
+| quoteAmount |benchmark currency amount , only used in bid orders with market price|
+| dealQuoteAmount |trading amount of benchmark currency|
+| systemOrderType |10:limit price 11:market price|
+| status |0:unfilled 1:partially filled 2:filled 3:cancelling  -1:canceled |
+| sourceInfo |order source web,api,Ios,android|
+| createOn |create time|
+| updateOn |modify time|
+| symbol |currency|
+| trunOver |trade volume   dealQuoteAmount * dealAmount|
+| notStrike |unfilled amount|
+| averagePrice |average trading price|
+| openAmount |order amount|
+
+**Request parameters**
+
+|Parameter Name | Parameter Type | Required | Description|
+|-----|:---:|----|----|
+|pairCode|String|Yes|trading pair，example:LTC_BTC|
+|status|Integer|Yes|0:unfilled 1:partially filled 2:filled -1:canceled|
+|startDate|Long|No|Start time，example:1524801032573|
+|endDate|Long|No|end time，example:1524801032573|
+|systemOrderType|Integer|No|10:limit price 11:market price|
+|price|BigDecimal|No|Price|
+|amount|BigDecimal|No|Amount|
+|source|String|No|Trading pair，example:LTC_BTCweb,api,Ios,android|
+|isHistory|Boolean|No|Whether to check historical data, the data of one week ago is historical data, default false|
+|page|Integer|No|Page number|
+|pageSize|Integer|No|terms number of per page|
+
+### 11. Get bills
+Get the crypto transaction bill, can be checked with pagination 
 **Request**
 ```http
     # Request
