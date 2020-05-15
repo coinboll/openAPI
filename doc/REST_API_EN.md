@@ -303,7 +303,8 @@ Get trading history of the requested trading pairs .
             "0.0787",
             "buy",
             1589165365839,
-            1111111111
+            1111111111,
+            2222222
         ],
         ...
     ]
@@ -317,6 +318,7 @@ Get trading history of the requested trading pairs .
 | 2 |side|
 | 3 |timestamp|
 | 4 |order id|
+| 5 |id|
 
 **Request parameters**
 
